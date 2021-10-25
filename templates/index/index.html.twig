@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+    {% if users %}
+        {% for user in users %}
+
+            <div class="list-group-item">
+                <span class="text-center mx-3">{{user.username}}</span>
+                <span class="text-center mx-3">{{user.email}}</span>
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <h2>No hay usuarios disponibles</h2>
+    {% endif %}
+{% endblock %}
