@@ -29,12 +29,12 @@ class UserController extends AbstractController
 
         if ( $users )
         {
-            return $this->render('user/create_category.html.twig', [
+            return $this->render('user/index.html.twig', [
                     "users" => $users]
             );
         }
         else
-            return $this->render('user/create_category.html.twig', [
+            return $this->render('user/index.html.twig', [
                     'users' => null,
                 ]
             );

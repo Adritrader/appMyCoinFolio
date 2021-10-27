@@ -21,12 +21,12 @@ class IndexController extends AbstractController
 
         if ( $users )
         {
-            return $this->render('index/create_category.html.twig', [
+            return $this->render('index/index.html.twig', [
                     "users" => $users]
             );
         }
         else
-            return $this->render('index/create_category.html.twig', [
+            return $this->render('index/index.html.twig', [
                     'users' => null,
                 ]
             );

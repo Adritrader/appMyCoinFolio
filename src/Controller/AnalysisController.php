@@ -30,12 +30,12 @@ class AnalysisController extends AbstractController
 
         if ( $analysis )
         {
-            return $this->render('analysis/create_category.html.twig', [
+            return $this->render('analysis/index.html.twig', [
                     "analysis" => $analysis]
             );
         }
         else
-            return $this->render('analisys/create_category.html.twig', [
+            return $this->render('analysis/index.html.twig', [
                     'analysis' => null,
                 ]
             );

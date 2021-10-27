@@ -13,7 +13,7 @@ class PortfolioController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('portfolio/create_category.html.twig', [
+        return $this->render('portfolio/create_comment.html.twig', [
             'controller_name' => 'PortfolioController',
         ]);
     }
