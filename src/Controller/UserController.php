@@ -29,12 +29,12 @@ class UserController extends AbstractController
 
         if ( $users )
         {
-            return $this->render('user/index.html.twig', [
+            return $this->render('user/create_category.html.twig', [
                     "users" => $users]
             );
         }
         else
-            return $this->render('user/index.html.twig', [
+            return $this->render('user/create_category.html.twig', [
                     'users' => null,
                 ]
             );
@@ -52,7 +52,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $usuario = $form->getData();
+            $user = $form->getData();
             if ($posterFile = $form['avatar']->getData()) {
                 $filename = bin2hex(random_bytes(6)) . '.' . $posterFile->guessExtension();
 
@@ -62,11 +62,11 @@ class UserController extends AbstractController
 
                     if(empty($filename)){
 
-                        $usuario->setAvatar("nofoto.jpg");
+                        $user->setAvatar("nofoto.jpg");
 
                     } else {
 
-                        $usuario->setAvatar($filename);
+                        $user->setAvatar($filename);
 
                     }
                 } catch (FileException $e) {
@@ -77,29 +77,29 @@ class UserController extends AbstractController
 
             //Encriptamos la contraseña
 
-            $hashedPassword = $encoder->encodePassword($usuario, $usuario->getPassword());
-            $usuario->setPassword($hashedPassword);
+            $hashedPassword = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
 
 
             // Asignamos la fecha de actualización, por defecto es la fecha de creación del usuario
 
-            $usuario->setCreatedAt(new \DateTime());
+            $user->setCreatedAt(new \DateTime());
 
 
             $updated = date("Y-m-d H:i:s", time());
-            $usuario->setUpdatedAt($updated);
+            $user->setUpdatedAt($updated);
 
             // Guardamos el usuario en la BD
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($usuario);
+            $entityManager->persist($user );
             $entityManager->flush();
 
             //Logger
 
-            $logger = new Logger('usuario');
+            $logger = new Logger('User');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
-            $logger->info('Se ha registrado un usuario nuevo');
+            $logger->info('User ' . $user->getUsername() . ' successfully registered on ' . date("Y-m-d H:i:s", time()));
 
             // Flash message
 
@@ -111,6 +111,29 @@ class UserController extends AbstractController
         return $this->render('user/create_user.html.twig', array(
             'form' => $form->createView()));
     }
+
+
+    /**
+     * @Route("/users/{id}/profile", name="show_user", requirements={"id"="\d+"})
+     */
+    public function showUserBack(int $id)
+    {
+
+        /*$this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');*/
+        $usuarioRepository = $this->getDoctrine()->getRepository(User::class);
+        $usuario = $usuarioRepository->find($id);
+        if ($usuario)
+        {
+            return $this->render('user/show_user.html.twig', ["user"=>$usuario]
+            );
+        }
+        else
+            return $this->render('user/show_user.html.twig', [
+                    'user' => null]
+            );
+    }
+
 
 
     /**
@@ -206,7 +229,7 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('index');
         }
-        return $this->render('user/index.html.twig');
+        return $this->render('user/create_category.html.twig');
     }
 
 }

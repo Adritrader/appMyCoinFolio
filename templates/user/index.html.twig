@@ -77,8 +77,14 @@
                                         <td class="text-center">{{ user.role }}</td>
                                         <td class="text-center">{{ user.email }}</td>
                                         <td class="text-center">{{ user.createdat | date }}</td>
-                                        <td class="text-center" style="width: 140px"><a
-                                                    href="{{ path('edit_user', {id: user.id}) }}">
+                                        <td class="text-center" style="width: 140px">
+
+                                            <a href="{{ path('show_user', {id: user.id}) }}">
+                                                <button type="button" class="btn btn-info my-1"><i class="fa fa-eye mx-1"></i>
+                                                    show
+                                                </button>
+                                            </a>
+                                            <a href="{{ path('edit_user', {id: user.id}) }}">
                                                 <button type="button" class="btn btn-warning my-1"><i class="fa fa-edit mx-1"></i>
                                                     Edit
                                                 </button>

@@ -2,3 +2,7 @@
 [2021-10-25T14:59:28.911242+00:00] usuario.INFO: Se ha registrado un usuario nuevo [] []
 [2021-10-25T14:59:56.580953+00:00] usuario.INFO: Se ha editado el usuarioMaxPowercorrectamente [] []
 [2021-10-25T15:13:49.014389+00:00] usuario.INFO: El usuario MaxPower ha sido eliminado [] []
+[2021-10-26T08:06:16.040354+00:00] User.INFO: User Usuario successfully registered on 2021-10-26 08:06:16 [] []
+[2021-10-27T14:32:15.135200+00:00] Analysis.INFO: Analysis 1 successfully registered on 2021-10-27 14:32:15 [] []
+[2021-10-27T14:41:41.642669+00:00] Analysis.INFO: Analysis 1 successfully registered on 2021-10-27 14:41:41 [] []
+[2021-10-27T14:55:53.892217+00:00] Analysis.INFO: Analysis 1 successfully edited on 2021-10-27 14:55:53 [] []
