@@ -2,21 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Analysis;
 use App\Entity\Category;
-use App\Form\AnalysisType;
 use App\Form\CategoryType;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+
 
 class CategoryController extends AbstractController
 {
-
 
     /**
      * @Route("/category/create", name="create_category")

@@ -152,4 +152,69 @@ class AnalysisController extends AbstractController
             'form' => $form->createView()));
     }
 
+    /**
+     *@Route("/analysis/{id}/show", name="show_analysis", requirements={"id"="\d+"})
+     */
+    public function show(int $id)
+    {
+        $analysisRepository = $this->getDoctrine()->getRepository(Analysis::class);
+        $analysis = $analysisRepository->find($id);
+
+        if ($analysis) {
+            return $this->render('analysis/show_analysis.html.twig', ["analysis" => $analysis]
+            );
+        } else
+            return $this->render('analysis/show_analysis.html.twig', [
+                    'analysis' => null]
+            );
+    }
+
+    /**
+     *@Route("/analysis/{id}/delete", name="delete_analysis", requirements={"id"="\d+"})
+     */
+    public function delete(int $id)
+    {
+
+        /*
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');*/
+
+        $analysisRepository = $this->getDoctrine()->getRepository(Analysis::class);
+        $analysis = $analysisRepository->find($id);
+
+        return $this->render('analysis/delete_analysis.html.twig', ["analysis" => $analysis]);
+
+    }
+
+    /**
+     *@Route("/analysis/{id}/destroy", name="destroy_analysis", requirements={"id"="\d+"})
+     */
+    public function destroy(int $id)
+    {
+
+        /*
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',
+            null, 'Acceso restringido a administradores');*/
+
+
+        $entityManager =$this->getDoctrine()->getManager();
+        $analysisRepository = $this->getDoctrine()->getRepository(Analysis::class);
+        $analysis = $analysisRepository->find($id);
+
+        if ($analysis) {
+            $entityManager->remove($analysis);
+            $entityManager->flush();
+            $this->addFlash('success', "Analysis " . $analysis->getId() . " has been deleted!");
+
+            //LOGGER
+
+            $logger = new Logger('Analysis');
+            $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+            $logger->info("Analysis " . $analysis->getId() . " has been deleted");
+
+            return $this->redirectToRoute('analysis');
+        }
+        return $this->render('analysis/index.html.twig');
+    }
+
 }

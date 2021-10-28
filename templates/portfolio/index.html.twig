@@ -3,18 +3,50 @@
 {% block title %}Hello PortfolioController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Adrian/Desktop/Adrian/my_coin_folio_app/src/Controller/PortfolioController.php'|file_link(0) }}">src/Controller/PortfolioController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Adrian/Desktop/Adrian/my_coin_folio_app/templates/portfolio/create_category.html.twig'|file_link(0) }}">templates/portfolio/index.html.twig</a></code></li>
-    </ul>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Portfolios</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ path('portfolios') }}">Portfolios</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <hr>
 </div>
+<div class="container-fluid">
+    <div class="row fila-blog">
+        <div class="container-fluid">
+            <div class="row justify-content-start">
+                <div class="col-7 col-lg-6 ml-3">
+                    <div><a style="text-decoration: none; color: white" class="btn" href="{{ path('create_analysis') }}">
+                            <button class="btn btn-primary">
+                                <i class="fa fa-plus-circle">
+                                </i> Add portfolio
+                            </button>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+
+    {% if portfolios %}
+        {% for portfolio in portfolios %}
+
+            <div class="list-group-item">
+                <span class="text-center mx-3">{{portfolio.id}}</span>
+                <span class="text-center mx-3">{{portfolio.date | date}}</span>
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <h2>There aren't portfolios</h2>
+    {% endif %}
 {% endblock %}
