@@ -11,7 +11,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ path('index') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ path('portfolios') }}">Portfolios</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ path('portfolios') }}">Portfolios</a>
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -24,7 +25,8 @@
         <div class="container-fluid">
             <div class="row justify-content-start">
                 <div class="col-7 col-lg-6 ml-3">
-                    <div><a style="text-decoration: none; color: white" class="btn" href="{{ path('create_analysis') }}">
+                    <div><a style="text-decoration: none; color: white" class="btn"
+                            href="{{ path('create_portfolios') }}">
                             <button class="btn btn-primary">
                                 <i class="fa fa-plus-circle">
                                 </i> Add portfolio
@@ -37,16 +39,34 @@
             <hr>
 
 
-    {% if portfolios %}
-        {% for portfolio in portfolios %}
+            {% if portfolios %}
+                {% for portfolio in portfolios %}
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="list-group-item">
+                                <span class="text-center mx-3">{{ portfolio.id }}</span>
+                                <span class="text-center mx-3">{{ portfolio.createdat | date }}</span>
+                                <span class="text-center mx-3">{{ portfolio.modifiedat | date }}</span>
+                                <span class="text-center mx-3">{{ portfolio.user.id }}</span>
+                                <hr>
 
-            <div class="list-group-item">
-                <span class="text-center mx-3">{{portfolio.id}}</span>
-                <span class="text-center mx-3">{{portfolio.date | date}}</span>
-            </div>
+                                <a style="text-decoration: none; color: white" class="btn"
+                                   href="{{ path('show_portfolio', {id: portfolio.id}) }}">
+                                    <button class="btn btn-primary">
+                                        <i class="fa fa-plus-circle">
+                                        </i> Show Portfolio
+                                    </button>
 
-        {% endfor %}
-    {% else %}
-        <h2>There aren't portfolios</h2>
-    {% endif %}
-{% endblock %}
+                                </a>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+            {% else %}
+                <h2>There aren't portfolios</h2>
+            {% endif %}
+            {% endblock %}

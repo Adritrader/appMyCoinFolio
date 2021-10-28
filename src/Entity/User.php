@@ -63,9 +63,15 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Portfolio::class, mappedBy="user")
+     */
+    private $portfolios;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->portfolios = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,6 +207,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Portfolio[]
+     */
+    public function getPortfolios(): Collection
+    {
+        return $this->portfolios;
+    }
+
+    public function addPortfolio(Portfolio $portfolio): self
+    {
+        if (!$this->portfolios->contains($portfolio)) {
+            $this->portfolios[] = $portfolio;
+            $portfolio->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePortfolio(Portfolio $portfolio): self
+    {
+        if ($this->portfolios->removeElement($portfolio)) {
+            // set the owning side to null (unless already changed)
+            if ($portfolio->getUser() === $this) {
+                $portfolio->setUser(null);
             }
         }
 

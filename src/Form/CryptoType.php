@@ -2,12 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use App\Entity\Crypto;
-use Doctrine\DBAL\Types\FloatType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,7 +21,7 @@ class CryptoType extends AbstractType
             ->add('entry_price', NumberType::class)
             ->add('quantity', NumberType::class)
             ->add('buy_date', DateType::class)
-            ->add('create', SubmitType::class, array('label' => 'Create'));
+            ->add('create', SubmitType::class, array('label' => 'Save'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
