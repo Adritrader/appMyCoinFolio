@@ -82,7 +82,7 @@ class PortfolioController extends AbstractController
 
         /*$this->denyAccessUnlessGranted('ROLE_ADMIN',
             null, 'Acceso restringido a administradores');*/
-        $portfolioRepository = $this->getDoctrine()->getRepository(User::class);
+        $portfolioRepository = $this->getDoctrine()->getRepository(Portfolio::class);
         $portfolio = $portfolioRepository->find($id);
         if ($portfolio)
         {

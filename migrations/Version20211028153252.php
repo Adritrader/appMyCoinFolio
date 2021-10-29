@@ -26,5 +26,6 @@ final class Version20211028153252 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
 
+
     }
 }

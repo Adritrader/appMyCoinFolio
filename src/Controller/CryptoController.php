@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
+use App\Entity\Contain;
 use App\Entity\Crypto;
-use App\Form\CategoryType;
+use App\Entity\Portfolio;
 use App\Form\CryptoType;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -21,6 +21,10 @@ class CryptoController extends AbstractController
     public function create(Request $request, int $id): Response
     {
         $crypto = new Crypto();
+        $contain = new Contain();
+
+        $portfolioRepository = $this->getDoctrine()->getRepository(Portfolio::class);
+        $portfolio = $portfolioRepository->find($id);
 
         $form = $this->createForm(CryptoType::class, $crypto);
 
@@ -28,19 +32,24 @@ class CryptoController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $category = $form->getData();
+            $crypto = $form->getData();
+            $contain->setCrypto($crypto);
+            $contain->setPortfolio($portfolio);
 
             // Save category on BD
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
+            $entityManager->persist($crypto);
+            $entityManager->persist($contain);
             $entityManager->flush();
 
             //Logger
 
             $logger = new Logger('Crypto');
+            $logger2 = new Logger('Contain');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
             $logger->info('Crypto ' . $crypto->getName() . ' successfully registered on ' . date("Y-m-d H:i:s", time()));
+            $logger2->info('Contain ' . $crypto->getId() . ' successfully registered on ' . date("Y-m-d H:i:s", time()));
 
             // Flash message
 
