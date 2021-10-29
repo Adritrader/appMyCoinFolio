@@ -53,7 +53,7 @@ class CryptoController extends AbstractController
 
             // Flash message
 
-            $this->addFlash('success', "Category has been created succesfully");
+            $this->addFlash('success', "Crypto has been added succesfully");
 
 
             return $this->redirectToRoute('index');
