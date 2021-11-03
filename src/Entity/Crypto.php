@@ -6,11 +6,13 @@ use App\Repository\CryptoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CryptoRepository::class)
  */
-class Crypto
+class Crypto implements \Serializable
 {
     /**
      * @ORM\Id
@@ -26,16 +28,19 @@ class Crypto
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank( message = "Entry price is mandatory")
      */
     private $entry_price;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank( message = "Buy date is mandotory")
      */
     private $buy_date;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank( message = "Quantity is mandotory")
      */
     private $quantity;
 
@@ -130,5 +135,15 @@ class Crypto
         }
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        // TODO: Implement serialize() method.
+    }
+
+    public function unserialize($data)
+    {
+        // TODO: Implement unserialize() method.
     }
 }

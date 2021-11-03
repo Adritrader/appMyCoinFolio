@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
  */
-class Comment
+class Comment implements \Serializable
 {
     /**
      * @ORM\Id
@@ -19,8 +21,9 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=1500)
+     * @Assert\NotBlank( message = "Message is mandatory")
      */
-    private $message;
+    private ?string $message;
 
     /**
      * @ORM\Column(type="datetime")
@@ -107,5 +110,15 @@ class Comment
         $this->analysis = $analysis;
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        // TODO: Implement serialize() method.
+    }
+
+    public function unserialize($data)
+    {
+        // TODO: Implement unserialize() method.
     }
 }

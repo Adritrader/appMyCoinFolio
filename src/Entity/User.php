@@ -7,14 +7,18 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email")
  * @method string getUserIdentifier()
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -25,24 +29,27 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
+     * @Assert\NotBlank( message = "Username is mandatory")
      */
-    private $username;
+    private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "Password is mandatory")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "Email is mandatory")
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "Avatar is mandatory")
      */
-    private $avatar;
+    private ?string $avatar;
 
     /**
      * @ORM\Column(type="datetime")
@@ -242,5 +249,32 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * String representation of object.
+     * @link https://php.net/manual/en/serializable.serialize.php
+     * @return string|null The string representation of the object or null
+     * @throws Exception Returning other type than string or null
+     */
+    public function serialize(): ?string
+    {
+        return serialize([
+            $this->getId(),
+            $this->getUsername(),
+            $this->getPassword()
+        ]);
+    }
+
+    /**
+     * Constructs the object.
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized The string representation of the object.
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        list( $this->id, $this->username, $this->password) =
+            unserialize($serialized, ['allowed_classes' => false]);
     }
 }

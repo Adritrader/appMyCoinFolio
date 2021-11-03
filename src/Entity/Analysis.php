@@ -6,11 +6,13 @@ use App\Repository\AnalysisRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnalysisRepository::class)
  */
-class Analysis
+class Analysis implements \Serializable
 {
     /**
      * @ORM\Id
@@ -21,18 +23,21 @@ class Analysis
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "Title is mandatory")
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank( message = "Image is mandatory")
      */
-    private $image;
+    private ?string $image;
 
     /**
      * @ORM\Column(type="string", length=3000)
+     * @Assert\NotBlank( message = "Content is mandatory")
      */
-    private $content;
+    private ?string $content;
 
     /**
      * @ORM\Column(type="datetime")
@@ -148,5 +153,15 @@ class Analysis
         }
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        // TODO: Implement serialize() method.
+    }
+
+    public function unserialize($data)
+    {
+        // TODO: Implement unserialize() method.
     }
 }
