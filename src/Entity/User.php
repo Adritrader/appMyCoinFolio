@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -18,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("email")
  * @method string getUserIdentifier()
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, Serializable
 {
     /**
      * @ORM\Id
@@ -262,9 +263,10 @@ class User implements UserInterface, \Serializable
         return serialize([
             $this->getId(),
             $this->getUsername(),
-            $this->getPassword()
+            $this->getEmail()
         ]);
     }
+
 
     /**
      * Constructs the object.
@@ -274,7 +276,10 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized)
     {
-        list( $this->id, $this->username, $this->password) =
+        list( $this->id, $this->username, $this->email) =
             unserialize($serialized, ['allowed_classes' => false]);
     }
+
+
+
 }

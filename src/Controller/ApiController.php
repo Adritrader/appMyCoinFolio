@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Analysis;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\AnalysisRepository;
@@ -51,15 +52,34 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="api_producto_show", methods={"GET"})
+     * @Route("/{id}/user", name="api_user_show", methods={"GET"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function show(Request $request,  ?Producto $producto): JsonResponse
+    public function showUser(Request $request,  ?User $user): JsonResponse
     {
 
-        if (!empty($producto))
-            return new JsonResponse($producto, Response::HTTP_OK);
+        var_dump($user);
+
+        if (!empty($user))
+            return new JsonResponse($user, Response::HTTP_OK);
+
+        else
+            return new JsonResponse("error", Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @Route("/{id}/analysis", name="api_analysis_show", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function show(Request $request,  ?Analysis $analysis): JsonResponse
+    {
+
+        var_dump($analysis);
+
+        if (!empty($analysis))
+            return new JsonResponse($analysis, Response::HTTP_OK);
 
         else
             return new JsonResponse("error", Response::HTTP_NOT_FOUND);
