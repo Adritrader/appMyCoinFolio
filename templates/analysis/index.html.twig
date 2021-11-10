@@ -50,7 +50,7 @@
                 {% for analysi in analysis %}
 
 
-                <section class="card border shadow mt-3">
+                    <section class="card border shadow mt-3">
                     <div class="row p-3">
                         <div class="col-3">
                             <img class="w-100 p-3" src="{{ asset(avatar_public_directory ~  analysi.image) }}" alt="imagen-entrada-blog">
@@ -68,6 +68,7 @@
                         </div>
                     </div>
                 </section>
+
 
                 {% endfor %}
                 {% else %}
