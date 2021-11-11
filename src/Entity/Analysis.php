@@ -185,12 +185,12 @@ class Analysis implements \Serializable, \JsonSerializable
 
     public function jsonSerialize()
     {
-        return [
+        return array( "analysis" => [
             "id" => $this->getId(),
             "title" => $this->getTitle(),
             "image" => $this->getImage(),
             "date" => $this->getDate(),
             "content" => $this->getContent()
-        ];
+        ]);
     }
 }

@@ -76,8 +76,6 @@ class ApiController extends AbstractController
     public function show(Request $request,  ?Analysis $analysis): JsonResponse
     {
 
-        var_dump($analysis);
-
         if (!empty($analysis))
             return new JsonResponse($analysis, Response::HTTP_OK);
 
