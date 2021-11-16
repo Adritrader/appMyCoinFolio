@@ -190,7 +190,9 @@ class Analysis implements \Serializable, \JsonSerializable
             "title" => $this->getTitle(),
             "image" => $this->getImage(),
             "date" => $this->getDate(),
-            "content" => $this->getContent()
+            "content" => $this->getContent(),
+            "category" => $this->getCategory(),
+            "comments" =>$this->getComments()
         ]);
     }
 }

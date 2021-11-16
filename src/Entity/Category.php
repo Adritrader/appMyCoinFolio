@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Category implements \Serializable
+class Category implements \Serializable, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -93,5 +93,15 @@ class Category implements \Serializable
     public function unserialize($data)
     {
         // TODO: Implement unserialize() method.
+    }
+
+    public function jsonSerialize()
+    {
+        return array( "contains" => [
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "analysis" => $this->getAnalyses(),
+
+        ]);
     }
 }

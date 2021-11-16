@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
  */
-class Comment implements \Serializable
+class Comment implements \Serializable, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -120,5 +120,18 @@ class Comment implements \Serializable
     public function unserialize($data)
     {
         // TODO: Implement unserialize() method.
+    }
+
+    public function jsonSerialize()
+    {
+        return array( "comments" => [
+            "id" => $this->getId(),
+            "message" => $this->getMessage(),
+            "date" => $this->getDate(),
+            "picture" => $this->getPicture(),
+            "user" => $this->getUser(),
+            "analysis" => $this->getAnalysis(),
+
+        ]);
     }
 }

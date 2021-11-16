@@ -10,7 +10,7 @@ use Exception;
 /**
  * @ORM\Entity(repositoryClass=ContainRepository::class)
  */
-class Contain implements \Serializable
+class Contain implements \Serializable, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -68,5 +68,15 @@ class Contain implements \Serializable
     public function unserialize($data)
     {
         // TODO: Implement unserialize() method.
+    }
+
+    public function jsonSerialize()
+    {
+        return array( "contains" => [
+            "id" => $this->getId(),
+            "crypto" => $this->getCrypto(),
+            "portfolio" => $this->getPortfolio(),
+
+        ]);
     }
 }

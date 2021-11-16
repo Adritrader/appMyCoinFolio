@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CryptoRepository::class)
  */
-class Crypto implements \Serializable
+class Crypto implements \Serializable, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -145,5 +145,18 @@ class Crypto implements \Serializable
     public function unserialize($data)
     {
         // TODO: Implement unserialize() method.
+    }
+
+    public function jsonSerialize()
+    {
+        return array( "cryptos" => [
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "entry_price" => $this->getEntryPrice(),
+            "buy_date" => $this->getBuyDate(),
+            "quantity" => $this->getQuantity(),
+            "contains" => $this->getContains()
+
+        ]);
     }
 }

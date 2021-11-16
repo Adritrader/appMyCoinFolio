@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use JsonSerializable;
 use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("email")
  * @method string getUserIdentifier()
  */
-class User implements UserInterface, Serializable
+class User implements UserInterface, Serializable, JsonSerializable
 {
     /**
      * @ORM\Id
@@ -267,7 +268,6 @@ class User implements UserInterface, Serializable
         ]);
     }
 
-
     /**
      * Constructs the object.
      * @link https://php.net/manual/en/serializable.unserialize.php
@@ -281,5 +281,18 @@ class User implements UserInterface, Serializable
     }
 
 
-
+    public function jsonSerialize()
+    {
+        return array( "users" => [
+            "id" => $this->getId(),
+            "username" => $this->getUsername(),
+            "email" => $this->getEmail(),
+            "avatar" => $this->getAvatar(),
+            "created_at" => $this->getCreatedAt(),
+            "modified_at" => $this->getModifiedAt(),
+            "newsletter" => $this->getNewsletter(),
+            "comments" => $this->getComments(),
+            "portfolios" => $this->getPortfolios()
+        ]);
+    }
 }

@@ -11,7 +11,7 @@ use Exception;
 /**
  * @ORM\Entity(repositoryClass=PortfolioRepository::class)
  */
-class Portfolio implements \Serializable
+class Portfolio implements \Serializable, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -142,5 +142,18 @@ class Portfolio implements \Serializable
     public function unserialize($data)
     {
         // TODO: Implement unserialize() method.
+    }
+
+    public function jsonSerialize()
+    {
+        return array( "portfolios" => [
+            "id" => $this->getId(),
+            "created_at" => $this->getCreatedAt(),
+            "modified_at" => $this->getModifiedAt(),
+            "total_price" => $this->getTotalPrice(),
+            "user" => $this->getUser(),
+            "contains" => $this->getContains()
+
+        ]);
     }
 }

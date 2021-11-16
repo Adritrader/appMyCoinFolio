@@ -170,13 +170,13 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($usuarios);
             $entityManager->flush();
-            $this->addFlash('success', "El usuario " . $usuarios->getUsername() . " ha sido editado correctamente!");
+            $this->addFlash('success', "User " . $usuarios->getUsername() . " has been successfully edited!");
 
             //LOGGER
 
             $logger = new Logger('usuario');
             $logger->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
-            $logger->info('Se ha editado el usuario' . $usuarios->getUsername() . 'correctamente');
+            $logger->info('User ' . $usuarios->getUsername() . ' has been edited successfully');
 
             return $this->redirectToRoute('index');
         }
@@ -189,6 +189,9 @@ class UserController extends AbstractController
      */
     public function delete(int $id)
     {
+
+
+
 
         /*
         $this->denyAccessUnlessGranted('ROLE_ADMIN',
