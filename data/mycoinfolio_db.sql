@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-11-2021 a las 17:20:49
+-- Tiempo de generación: 17-11-2021 a las 12:22:50
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -173,7 +173,9 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20211028072940', '2021-10-28 07:31:41', 30),
 ('DoctrineMigrations\\Version20211028143803', '2021-10-28 14:39:54', 44),
 ('DoctrineMigrations\\Version20211028153252', '2021-10-28 15:33:52', 30),
-('DoctrineMigrations\\Version20211029081009', '2021-10-29 08:10:46', 382);
+('DoctrineMigrations\\Version20211029081009', '2021-10-29 08:10:46', 382),
+('DoctrineMigrations\\Version20211117104936', '2021-11-17 11:43:51', 100),
+('DoctrineMigrations\\Version20211117115016', '2021-11-17 12:05:22', 31);
 
 -- --------------------------------------------------------
 
@@ -214,23 +216,25 @@ CREATE TABLE IF NOT EXISTS `user` (
   `created_at` datetime NOT NULL,
   `modified_at` datetime DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `newsletter` tinyint(1) DEFAULT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `created_at`, `modified_at`, `avatar`, `username`, `newsletter`) VALUES
-(1, 'admin@admin.com', 'admin', '2021-05-13 00:00:00', '2021-05-13 00:00:00', 'nophoto.jpg', 'admin', 0),
-(2, 'user@user.com', 'user', '2020-07-17 16:19:00', '2020-10-19 13:14:00', 'nophoto.jpg', 'user', 0),
-(3, 'manager@manager.com', 'manager', '2016-01-01 00:00:00', '2019-07-14 10:11:00', 'nophoto.jpg', 'manager', 1),
-(4, 'manager@manager.com', 'manager2', '2016-01-01 00:00:00', '2019-07-14 10:11:00', 'nophoto.jpg', 'manager2', 1),
-(5, 'user@gmail.com', '$2y$13$lW2TECw7JkvJ3npKkLdXc.wXPB5/9CTzNT22rEc.n5r/y8pccC4h6', '2021-10-25 11:36:42', NULL, 'b65ec9c09d77.png', 'user', NULL),
-(6, 'usuario@usuario.gmail.com', '$2y$13$nduGAXDHE/isNzsKpA2HS.RY/jvXsJFeqlby3scotitpKYIQ8FcpC', '2021-10-26 08:03:22', NULL, '1409a04b4102.png', 'Usuario', NULL),
-(7, 'usuario@usuario.gmail.com', '$2y$13$OXNfmkRZxY8DG9P2tsph8e4s7ox8H3CzB9lnh7E7OURKb1kSsUy3S', '2021-10-26 08:06:16', NULL, '9b276ee23127.png', 'Usuario', NULL);
+INSERT INTO `user` (`id`, `email`, `password`, `created_at`, `modified_at`, `avatar`, `username`, `newsletter`, `role`) VALUES
+(1, 'admin@admin.com', 'admin', '2021-05-13 00:00:00', '2021-05-13 00:00:00', 'nophoto.jpg', 'admin', 0, ''),
+(2, 'user@user.com', 'user', '2020-07-17 16:19:00', '2020-10-19 13:14:00', 'nophoto.jpg', 'user', 0, ''),
+(3, 'manager@manager.com', 'manager', '2016-01-01 00:00:00', '2019-07-14 10:11:00', 'nophoto.jpg', 'manager', 1, ''),
+(4, 'manager@manager.com', 'manager2', '2016-01-01 00:00:00', '2019-07-14 10:11:00', 'nophoto.jpg', 'manager2', 1, ''),
+(5, 'user@gmail.com', '$2y$13$lW2TECw7JkvJ3npKkLdXc.wXPB5/9CTzNT22rEc.n5r/y8pccC4h6', '2021-10-25 11:36:42', NULL, 'b65ec9c09d77.png', 'user', NULL, ''),
+(6, 'usuario@usuario.gmail.com', '$2y$13$nduGAXDHE/isNzsKpA2HS.RY/jvXsJFeqlby3scotitpKYIQ8FcpC', '2021-10-26 08:03:22', NULL, '1409a04b4102.png', 'Usuario', NULL, ''),
+(7, 'usuario@usuario.gmail.com', '$2y$13$OXNfmkRZxY8DG9P2tsph8e4s7ox8H3CzB9lnh7E7OURKb1kSsUy3S', '2021-10-26 08:06:16', NULL, '9b276ee23127.png', 'Usuario', NULL, ''),
+(8, 'adri@adri.com', '$2y$13$zs27QGqByJ1p7CNndh20x..lVy4wT2PtzMmPjxksTkv3yfErgJVrq', '2021-11-17 12:14:31', NULL, 'ea395c68be44.png', 'Adri', NULL, 'ROLE_MANAGER');
 
 --
 -- Restricciones para tablas volcadas
