@@ -40,6 +40,14 @@ class UserType extends AbstractType
                 ],
                 "data_class" => null
             ))
+            ->add('role', ChoiceType::class, [
+                'choices'  => [
+                    'ROLE_USER' => 'ROLE_USER',
+                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+                    'ROLE_MANAGER' => 'ROLE_MANAGER'
+
+                ],
+            ])
 
             ->add('create', SubmitType::class, array('label' => 'Create'));
     }
